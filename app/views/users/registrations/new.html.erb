@@ -1,0 +1,29 @@
+<h2>Register Here</h2>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%#= devise_error_messages! %>
+  <div class=" w3l-form-group">
+      <%= f.label :email %>
+      <div class="group">
+          <i class="fas fa-user"></i>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+  </div>
+  <div class=" w3l-form-group">
+      <%= f.label :password %>
+      <div class="group">
+          <i class="fas fa-unlock"></i>
+          <%= f.password_field :password, autocomplete: "new-password" %>
+      </div>
+  </div>
+  <div class=" w3l-form-group">
+      <%= f.label :password_confirmation %>
+      <div class="group">
+          <i class="fas fa-unlock"></i>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
+  </div>
+
+  <%= f.submit "Sign Up" %>
+<% end %>
+
+<p class=" w3l-register-p">Already have an account? <%= link_to "Login here", new_session_path(resource_name), class: "register" %></p>

@@ -20,5 +20,6 @@
 
 .rvmrc
 config/database.yml
-config/schema.rb
+db/schema.rb
 config/secrets.yml
+.DS_Store
