@@ -37,8 +37,12 @@ gem 'jbuilder', '~> 2.5'
 gem 'haml'
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem 'font-awesome-rails'
 gem 'toastr-rails'
+
+# authentication and authorization
 gem 'devise'
+gem 'cancancan'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

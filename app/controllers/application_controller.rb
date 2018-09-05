@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_resource
 
+  rescue_from CanCan::AccessDenied do | exception |
+    redirect_to dashboard_path, alert: exception.message
+  end
+
   private
 
   def layout_by_resource
@@ -14,6 +18,6 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    dashboard_index_path
+    dashboard_path
   end
 end

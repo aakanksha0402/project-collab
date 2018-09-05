@@ -1,2 +1,5 @@
-<h1>Dashboard</h1>
-<%= link_to "Logout", destroy_user_session_path, method: :delete %>
+<%= content_for :dashboard_class, "active" %>
+
+<div class="col-lg-3 col-sm-6">
+  <%= current_user.email %>
+</div>

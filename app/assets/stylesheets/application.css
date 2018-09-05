@@ -12,6 +12,10 @@
  *
  * require_tree .
  *= require bootstrap_and_overrides
+ *= require font-awesome
+ * require fonts
  *= require toastr
+ *= require animate.min
+ *= require paper-dashboard
  *= require_self
  */

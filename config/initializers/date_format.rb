@@ -1,0 +1,5 @@
+Date::DATE_FORMATS[:default]= '%-m/%-d/%Y'
+Time::DATE_FORMATS[:default]= '%-m/%-d/%Y %l:%M %^P'
+Date::DATE_FORMATS[:semiformal] = '%B %-d, %Y'
+Time::DATE_FORMATS[:semiformal] = '%B %-d, %Y'
+Time::DATE_FORMATS[:only_time] = '%l:%M %^P'

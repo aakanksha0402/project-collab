@@ -8,11 +8,6 @@ module ApplicationHelper
       flash_messages << text.html_safe if message
     end
 
-    # resource.errors.full_messages.each do |message|
-    #   text = "<script>toastr.error('#{message.gsub("'",";")}');</script>"
-    #   flash_messages << text.html_safe if message
-    # end
-
     flash_messages.join("\n").html_safe
   end
 

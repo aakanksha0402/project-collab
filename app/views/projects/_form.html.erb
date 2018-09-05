@@ -1,0 +1,78 @@
+<%= content_for :projects_class, "active" %>
+
+<div class="col-lg-8 col-md-7">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Project</h4>
+        </div>
+        <div class="content">
+            <%= form_with(model: project, local: true) do |form| %>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <%= form.label :project_id %>
+                            <%= form.text_field :project_id, class: "form-control border-input", placeholder: "Unique project id" %>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <%= form.label :status %>
+                            <%= form.collection_select :status, Project.statuses.keys, :to_s, lambda{|i| i.to_s.humanize}, {}, {class: "form-control border-input"} %>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <%= form.label :name %>
+                            <%= form.text_field :name, class: "form-control border-input", placeholder: "Project Name" %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <%= form.label :description %>
+                            <%= form.text_area :description, class: "form-control border-input", placeholder: "Here can be your description" %>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <%= form.submit "Save", class: "btn btn-info btn-fill btn-wd" %>
+                </div>
+                <div class="clearfix"></div>
+            <% end %>
+        </div>
+    </div>
+</div>
+<% if project.persisted? %>
+  <div class="col-lg-4 col-md-5">
+      <div class="card">
+          <div class="header">
+              <h4 class="title">Team Members</h4>
+          </div>
+          <div class="content">
+              <ul class="list-unstyled team-members">
+                  <li>
+                      <div class="row">
+                          <!-- <div class="col-xs-3">
+                              <div class="avatar">
+                                  <img src="assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                              </div>
+                          </div> -->
+                          <div class="col-xs-8">
+                              DJ Khaled
+                              <br />
+                              <span class="text-muted"><small>Joined at</small></span>
+                          </div>
+
+                          <div class="col-xs-4 text-left">
+                              <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-trash"></i></btn>
+                          </div>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+      </div>
+      <%= link_to "DELETE PROJECT", project_path, method: :delete, class: "btn btn-danger btn-fill btn-block" %>
+  </div>
+<% end %>

@@ -13,7 +13,9 @@
 //= require jquery
 //= require rails-ujs
 // require jquery_ujs
-//= require turbolinks
+// require turbolinks
 //= require twitter/bootstrap
 //= require toastr
+//= require bootstrap-checkbox-radio
+//= require paper-dashboard
 // require_tree .
