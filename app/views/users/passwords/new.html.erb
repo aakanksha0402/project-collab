@@ -1,0 +1,15 @@
+<h2>Forgot your password?</h2>
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+  <%#= devise_error_messages! %>
+  <div class=" w3l-form-group">
+      <%= f.label :email %>
+      <div class="group">
+          <i class="fas fa-user"></i>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+  </div>
+
+  <%= f.submit "Send me reset password instructions" %>
+<% end %>
+<p class=" w3l-register-p">Don't have an account? <%= link_to "Register", new_registration_path(resource_name), class: "register" %></p>
+<p class=" w3l-register-p"><%= link_to "Login Here", new_session_path(resource_name), class: "register" %></p>

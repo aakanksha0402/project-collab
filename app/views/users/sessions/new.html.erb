@@ -1,0 +1,23 @@
+<h2>Login Here</h2>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class=" w3l-form-group">
+      <%= f.label :email %>
+      <div class="group">
+          <i class="fas fa-user"></i>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+  </div>
+  <div class=" w3l-form-group">
+      <%= f.label :password %>
+      <div class="group">
+          <i class="fas fa-unlock"></i>
+          <%= f.password_field :password, autocomplete: "current-password" %>
+      </div>
+  </div>
+  <div class="forgot">
+    <%= link_to "Forgot your password?", new_password_path(resource_name) %>
+  </div>
+
+  <%= f.submit "Log in" %>
+<% end %>
+<p class=" w3l-register-p">Don't have an account? <%= link_to "Register", new_registration_path(resource_name), class: "register" %></p>
