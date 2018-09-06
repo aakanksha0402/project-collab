@@ -4,7 +4,12 @@ Rails.application.routes.draw do
     root "users/sessions#new"
   end
 
-  resources :projects, except: [:show]
+  resources :projects, except: [:show] do
+    get :add_resources, on: :member
+    post :save_resources, on: :member
+    delete :remove_resource, on: :member
+    resources :tasks, except: [:show]
+  end
 
   get 'dashboard', to: "dashboard#index", as: :dashboard
 

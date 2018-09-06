@@ -29,6 +29,7 @@ $(document).ready(function(){
 
     //  Activate the tooltips
     $('[rel="tooltip"]').tooltip();
+    $('select').select2({theme: "bootstrap"});
 
 });
 

@@ -1,0 +1,35 @@
+<div class="modal-header">
+  <h4 class="modal-title">Add Resources</h4>
+</div>
+
+<% if @developers.present? %>
+  <%= form_tag save_resources_project_path, method: :post, remote: :true do %>
+    <!-- Modal body -->
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-12">
+          <%= collection_select :project, :users, @developers, :id, :email, {selected: @project.user_ids, prompt: "Select Users"}, {class: "form-control border-input", multiple: true} %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal footer -->
+    <div class="modal-footer">
+      <%= submit_tag "Save", class: "btn btn-olive" %>
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    </div>
+  <% end %>
+<% else %>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12">
+        <%= text_field_tag :project, "No Developer present", class: "form-control border-input", disabled: true %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal footer -->
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+  </div>
+<% end %>

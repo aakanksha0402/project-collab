@@ -1,0 +1,26 @@
+<% if project.users.present? %>
+  <% project.users.each do |user| %>
+  <div class="content">
+    <ul class="list-unstyled team-members">
+      <li>
+        <div class="row">
+          <div class="col-xs-8">
+            <%= user.email %>
+            <br />
+            <span class="text-muted"><small>Joined at <%= user.created_at %></small></span>
+          </div>
+          <div class="col-xs-4 text-left">
+            <%= link_to remove_resource_project_path(project, user_id: user.id), class: "btn btn-sm btn-success btn-icon", remote: true, data: { confirm: "Are you sure you want to remove #{user.email}?" }, method: :delete do %>
+              <i class="fa fa-trash"></i>
+            <% end %>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <% end %>
+<% else %>
+  <div class="content">
+    No Resources added to this project yet
+  </div>
+<% end %>

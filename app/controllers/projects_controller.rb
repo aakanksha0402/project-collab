@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
 
   load_and_authorize_resource
 
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :add_resources, :save_resources]
 
   # GET /projects
   # GET /projects.json
@@ -14,7 +14,6 @@ class ProjectsController < ApplicationController
     elsif user.developer?
       @projects = user.projects
     end
-
   end
 
   # GET /projects/1
@@ -71,10 +70,28 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def add_resources
+    @developers = User.developer
+  end
+
+  def save_resources
+    user_ids = params[:project][:users].compact
+    @project.user_ids = user_ids
+  end
+
+  def remove_resource
+    user_ids = @project.user_ids.delete(params[:user_id])
+    puts user_ids
+
+    @project.user_ids = user_ids
+
+    render :save_resources
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
-      @project = Project.find(params[:id])
+      @project = Project.includes(:users).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

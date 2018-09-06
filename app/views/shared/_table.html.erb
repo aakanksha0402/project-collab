@@ -4,10 +4,10 @@
     <div class="header">
       <div class="pull-left">
         <h4 class="title"><%= yield :theader %></h4>
-        <p class="category">Here is a subtitle for this table</p>
+        <p class="category"><b><%= yield :tsub_header %></b></p>
       </div>
       <div class="pull-right">
-        <%= yield :taction %>        
+        <%= yield :taction %>
       </div>
     </div>
     <div class="content table-responsive table-full-width">

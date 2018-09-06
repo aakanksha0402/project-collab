@@ -15,6 +15,7 @@
 // require jquery_ujs
 // require turbolinks
 //= require twitter/bootstrap
+//= require select2
 //= require toastr
 //= require bootstrap-checkbox-radio
 //= require paper-dashboard

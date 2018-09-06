@@ -1,0 +1,64 @@
+<%= content_for :projects_class, "active" %>
+
+<div class="col-lg-8 col-md-7">
+    <div class="card">
+        <div class="header">
+          <div class="pull-left">
+            <h4 class="title">Task</h4>
+            <p class="category"><b><%= @project.name %> (<%= @project.status.humanize %>)</b></p>
+          </div>
+          <div class="pull-right">
+            <%= link_to 'View all tasks', project_tasks_path(@project), class: "btn btn-info btn-fill btn-wd pull-right" if can? :read, Task %>
+          </div>
+        </div>
+        <div class="content">
+          <%= form_with(model: task, url: url, local: true) do |form| %>
+                <% if (can? :add_resource, Project) && @users.present? %>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <%= form.label :user %>
+                        <%= form.collection_select :user_id, @users, :id, :email, {}, {class: "form-control border-input"} %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <%= form.label :name %>
+                            <%= form.text_field :name, class: "form-control border-input", placeholder: "Task Name" %>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <%= form.label :project %>
+                            <%= form.text_field :project, value: form.object.project.name, class: "form-control border-input" %>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <%= form.label :status %>
+                            <%= form.collection_select :status, Task.statuses.keys, :to_s, lambda{|i| i.to_s.humanize}, {}, {class: "form-control border-input"} %>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <%= form.label :description %>
+                            <%= form.text_area :description, class: "form-control border-input", placeholder: "Here can be your description" %>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <%= form.submit "Save", class: "btn btn-info btn-fill btn-wd" %>
+                </div>
+                <div class="clearfix"></div>
+            <% end %>
+        </div>
+    </div>
+</div>
+<%#= link_to "DELETE PROJECT", project_path, method: :delete, class: "btn btn-danger btn-fill btn-block" %>

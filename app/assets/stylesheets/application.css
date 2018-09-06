@@ -14,6 +14,8 @@
  *= require bootstrap_and_overrides
  *= require font-awesome
  * require fonts
+ *= require select2
+ *= require select2-bootstrap
  *= require toastr
  *= require animate.min
  *= require paper-dashboard

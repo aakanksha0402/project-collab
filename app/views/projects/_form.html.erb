@@ -50,29 +50,12 @@
           <div class="header">
               <h4 class="title">Team Members</h4>
           </div>
-          <div class="content">
-              <ul class="list-unstyled team-members">
-                  <li>
-                      <div class="row">
-                          <!-- <div class="col-xs-3">
-                              <div class="avatar">
-                                  <img src="assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                              </div>
-                          </div> -->
-                          <div class="col-xs-8">
-                              DJ Khaled
-                              <br />
-                              <span class="text-muted"><small>Joined at</small></span>
-                          </div>
-
-                          <div class="col-xs-4 text-left">
-                              <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-trash"></i></btn>
-                          </div>
-                      </div>
-                  </li>
-              </ul>
+          <div class="team_members">            
+            <%= render 'project_users', project: @project %>
           </div>
       </div>
+      <%= link_to 'Add Resources', add_resources_project_path(project), class: "btn bg-olive btn-fill btn-block", remote: true if can? :add_resource, Project  %>
+      <%= link_to 'View Tasks', project_tasks_path(project), class: "btn bg-success btn-fill btn-block" if can? :read, Task  %>
       <%= link_to "DELETE PROJECT", project_path, method: :delete, class: "btn btn-danger btn-fill btn-block" %>
   </div>
 <% end %>

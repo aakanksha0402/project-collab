@@ -12,6 +12,7 @@
         <th>Name</th>
         <th>Created At</th>
         <th>Status</th>
+        <th>Created By</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -23,9 +24,11 @@
           <td><%= project.name %></td>
           <td><%= project.created_at.to_s(:default) %></td>
           <td><%= project.status.capitalize %></td>
+          <td><%= project.added_by.email %></td>
           <td>
-            <%= link_to 'Edit', edit_project_path(project), class: "btn bg-olive" %>
-            <%= link_to 'Delete', project, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+            <%= link_to 'Edit', edit_project_path(project), class: "btn bg-olive" if can? :update, Project  %>
+            <%= link_to 'View Tasks', project_tasks_path(project), class: "btn bg-olive" if can? :read, Task  %>
+            <%= link_to 'Add Resources', add_resources_project_path(project), class: "btn bg-olive", remote: true if can? :add_resource, Project  %>
           </td>
         </tr>
       <% end %>

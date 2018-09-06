@@ -30,9 +30,19 @@ class Ability
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
     if user.project_manager?
       # can :manage, :all
-      can :manage, Project      
+      # cannot :edit, Project do |project|
+      #   project.deleted?
+      # end
+
+      can :manage, Project
+      can :add_resource, Project
+      can [:read, :update, :create, :delete, :change_status], Task, project: {added_by_id: user.id}
     elsif user.developer?
-      can :read, :all
+      can :read, Project
+      cannot :update, Project
+      cannot :delete, Project
+      can [:create, :read], Task, project: {project_users: {user_id: user.id}}
+      can [:update, :delete, :change_status], Task, user_id: user.id
     end
   end
 end
