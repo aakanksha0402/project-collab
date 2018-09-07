@@ -1,10 +1,10 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
 
-  load_and_authorize_resource :project
-  load_and_authorize_resource :task, through: :project
+  load_and_authorize_resource :project, except: [:all_tasks]
+  load_and_authorize_resource :task, through: :project, except: [:all_tasks]
 
-  before_action :set_project
+  before_action :set_project, except: [:all_tasks]
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   # GET /tasks
@@ -34,12 +34,14 @@ class TasksController < ApplicationController
   def create
     @task = @project.tasks.new(task_params)
     @task.user = current_user if current_user.developer?
+    @statuses = Task.statuses.keys
 
     respond_to do |format|
       if @task.save
         format.html { redirect_to edit_project_task_path(@project, @task.id), notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }
       else
+        puts @task.errors.as_json
         format.html { render :new }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
@@ -70,6 +72,16 @@ class TasksController < ApplicationController
     end
   end
 
+  def all_tasks
+    @tasks = Task.all
+    @projects = Project.all
+    @tasks = Task.where(project_id: params[:project_id]) if params[:project_id].present?
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
@@ -93,5 +105,6 @@ class TasksController < ApplicationController
 
     def project_users
       @users = @project.users
+      @statuses = Task.statuses.keys
     end
 end

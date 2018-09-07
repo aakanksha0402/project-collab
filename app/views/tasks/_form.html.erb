@@ -41,7 +41,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <%= form.label :status %>
-                            <%= form.collection_select :status, Task.statuses.keys, :to_s, lambda{|i| i.to_s.humanize}, {}, {class: "form-control border-input"} %>
+                            <%= form.collection_select :status, @statuses, :to_s, lambda{|i| i.to_s.humanize}, {}, {class: "form-control border-input"} %>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,70 @@
 <%= content_for :dashboard_class, "active" %>
 
-<div class="col-lg-3 col-sm-6">
-  <%= current_user.email %>
+<h2>Developers</h2>
+
+ <div class="container">
+    <div class="row">
+      <table class="table" border=1>
+        <thead>
+          <tr>
+            <th>Status</th>
+            <% @developers.each do |user| %>
+              <th><%= user.email %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @statuses.each do |status| %>
+            <tr>
+              <td><%= status.humanize %></td>
+              <% @developers.each do |project| %>
+                <% tasks = project.tasks.send(status.to_sym) %>
+                <td>
+                  <% tasks.each do |t| %>
+                    <ul>
+                      <li><%= t.name %></li>
+                    </ul>
+                  <% end %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+ </div>
+
+
+<h2>Projects</h2>
+
+<div class="container">
+  <div class="row">
+    <table class="table" border=1>
+      <thead>
+        <tr>
+          <th>Status</th>
+          <% @names.each do |name| %>
+            <th><%= name %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @statuses.each do |status| %>
+          <tr>
+            <td><%= status.humanize %></td>
+            <% @projects.each do |project| %>
+              <% tasks = project.tasks.send(status.to_sym) %>
+              <td>
+                <% tasks.each do |t| %>
+                  <ul>
+                    <li><%= t.name %></li>
+                  </ul>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

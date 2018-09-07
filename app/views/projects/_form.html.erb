@@ -17,7 +17,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <%= form.label :status %>
-                            <%= form.collection_select :status, Project.statuses.keys, :to_s, lambda{|i| i.to_s.humanize}, {}, {class: "form-control border-input"} %>
+                            <%= form.collection_select :status, @statuses, :to_s, lambda{|i| i.to_s.humanize}, {}, {class: "form-control border-input"} %>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -50,7 +50,7 @@
           <div class="header">
               <h4 class="title">Team Members</h4>
           </div>
-          <div class="team_members">            
+          <div class="team_members">
             <%= render 'project_users', project: @project %>
           </div>
       </div>

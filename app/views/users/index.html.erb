@@ -1,0 +1,33 @@
+<%= content_for :users_class, "active" %>
+
+<%= content_for :tsub_header do %>
+  <%= @developers.count %>
+<% end %>
+
+<%= content_for :tcontent do %>
+  <% if @developers.present? %>
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Created At</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @developers.each do |developer| %>
+        <tr>
+          <td><%= developer.email %></td>
+          <td><%= developer.created_at.to_s(:default) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% else %>
+    <div class="row">
+      <p>No developer available..</p>
+    </div>
+  <% end %>
+<% end %>
+
+<%= content_for :theader, "All Developers" %>
+
+<%= render '/shared/table' %>

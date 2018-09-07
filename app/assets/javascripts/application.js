@@ -13,6 +13,7 @@
 //= require jquery
 //= require rails-ujs
 // require jquery_ujs
+//= require dataTables/jquery.dataTables
 // require turbolinks
 //= require twitter/bootstrap
 //= require select2

@@ -10,7 +10,7 @@
 
 <body>
   <div class="wrapper">
-    <div class="sidebar" data-background-color="white" data-active-color="danger">
+    <div class="sidebar" data-background-color="black" data-active-color="danger">
 
       <div class="sidebar-wrapper">
         <div class="logo">
@@ -32,17 +32,33 @@
               <p>Projects</p>
             <% end %>
           </li>
-          <li class="<%= yield :tasks_class %>">
-            <a href="table.html">
-              <%= fa_icon "tasks" %>
-              <p>User Profile</p>
-            </a>
-          </li>
+          <% if can? :all_tasks, Task %>
+            <li class="<%= yield :tasks_class %>">
+              <%= link_to all_tasks_path do %>
+                <%= fa_icon "tasks" %>
+                <p>Tasks</p>
+              <% end %>
+            </li>
+          <% end %>
+          <% if can? :all_tasks, Task %>
+            <li class="<%= yield :users_class %>">
+              <%= link_to users_path do %>
+                <%= fa_icon "users" %>
+                <p>Developers</p>
+              <% end %>
+            </li>
+          <% end %>
           <li class="<%= yield :settings_class %>">
-            <a href="table.html">
+            <%= link_to edit_user_registration_path do %>
               <%= fa_icon "gear" %>
               <p>Settings</p>
-            </a>
+            <% end %>
+          </li>
+          <li class="">
+            <%= link_to destroy_user_session_path, method: :delete do %>
+              <%= fa_icon "power-off" %>
+              <p>Logout</p>
+            <% end %>
           </li>
         </ul>
       </div>
@@ -58,11 +74,11 @@
               <span class="icon-bar bar2"></span>
               <span class="icon-bar bar3"></span>
             </button>
-            <a class="navbar-brand" href="#">Dashboard</a>
+            <a class="navbar-brand" href="#">Dashboard (<%= current_user.email %>)</a>
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li class="dropdown">
+              <!-- <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <%= fa_icon "bell" %>
                   <p class="notification">5</p>
@@ -77,11 +93,11 @@
                   <li><a href="#">Another notification</a></li>
                 </ul>
               </li>
-              <li>
-                <%= link_to destroy_user_session_path, method: :delete do %>
-                <%= fa_icon "power-off" %>
-                <p>Logout</p>
-                <% end %>
+              <li> -->
+                <!-- <%= link_to destroy_user_session_path, method: :delete do %>
+                  <%= fa_icon "power-off" %>
+                  <p>Logout</p>
+                <% end %> -->
               </li>
             </ul>
           </div>

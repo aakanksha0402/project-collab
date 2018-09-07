@@ -40,6 +40,8 @@ gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootst
 gem 'font-awesome-rails'
 gem 'toastr-rails'
 gem 'select2-rails'
+gem 'jquery-datatables-rails', '~> 3.4.0'
+
 
 
 # authentication and authorization

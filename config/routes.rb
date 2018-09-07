@@ -11,6 +11,13 @@ Rails.application.routes.draw do
     resources :tasks, except: [:show]
   end
 
+  # controller :users do
+  #   get 'index', as: "users"
+  # end
+
+  get '/users', to: "users#index", as: :users
+  get '/all_tasks', to: "tasks#all_tasks", as: :all_tasks
+
   get 'dashboard', to: "dashboard#index", as: :dashboard
 
   devise_for :users, controllers: { sessions: 'users/sessions',

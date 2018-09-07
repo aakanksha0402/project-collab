@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
   def index
     user = current_user
     if user.project_manager?
-      @projects = user.added_projects
+      @projects = Project.all
     elsif user.developer?
       @projects = user.projects
     end
@@ -23,11 +23,13 @@ class ProjectsController < ApplicationController
 
   # GET /projects/new
   def new
+    @statuses = Project.statuses.keys
     @project = current_user.added_projects.new
   end
 
   # GET /projects/1/edit
   def edit
+    @statuses = Project.statuses.keys
   end
 
   # POST /projects
@@ -36,6 +38,7 @@ class ProjectsController < ApplicationController
     @project = current_user.added_projects.new(project_params)
 
     respond_to do |format|
+      @statuses = Project.statuses.keys
       if @project.save
         format.html { redirect_to projects_path, notice: 'Project was successfully created.' }
         format.json { render :index, status: :created, location: @project }
@@ -50,8 +53,9 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1.json
   def update
     respond_to do |format|
+      @statuses = Project.statuses.keys
       if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+        format.html { redirect_to edit_project_path(@project), notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -80,8 +84,8 @@ class ProjectsController < ApplicationController
   end
 
   def remove_resource
-    user_ids = @project.user_ids.delete(params[:user_id])
-    puts user_ids
+    user_ids = @project.user_ids
+    removed_users = user_ids.delete(params[:user_id].to_i)
 
     @project.user_ids = user_ids
 
