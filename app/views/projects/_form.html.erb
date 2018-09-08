@@ -1,0 +1,61 @@
+<%= content_for :projects_class, "active" %>
+
+<div class="col-lg-8 col-md-7">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Project</h4>
+        </div>
+        <div class="content">
+            <%= form_with(model: project, local: true) do |form| %>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <%= form.label :project_id %>
+                            <%= form.text_field :project_id, class: "form-control border-input", placeholder: "Unique project id" %>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <%= form.label :status %>
+                            <%= form.collection_select :status, @statuses, :to_s, lambda{|i| i.to_s.humanize}, {}, {class: "form-control border-input"} %>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <%= form.label :name %>
+                            <%= form.text_field :name, class: "form-control border-input", placeholder: "Project Name" %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <%= form.label :description %>
+                            <%= form.text_area :description, class: "form-control border-input", placeholder: "Here can be your description" %>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <%= form.submit "Save", class: "btn btn-info btn-fill btn-wd" %>
+                </div>
+                <div class="clearfix"></div>
+            <% end %>
+        </div>
+    </div>
+</div>
+<% if project.persisted? %>
+  <div class="col-lg-4 col-md-5">
+      <div class="card">
+          <div class="header">
+              <h4 class="title">Team Members</h4>
+          </div>
+          <div class="team_members">
+            <%= render 'project_users', project: @project %>
+          </div>
+      </div>
+      <%= link_to 'Add Resources', add_resources_project_path(project), class: "btn bg-olive btn-fill btn-block", remote: true if can? :add_resource, Project  %>
+      <%= link_to 'View Tasks', project_tasks_path(project), class: "btn bg-success btn-fill btn-block" if can? :read, Task  %>
+      <%= link_to "DELETE PROJECT", project_path, method: :delete, class: "btn btn-danger btn-fill btn-block" %>
+  </div>
+<% end %>

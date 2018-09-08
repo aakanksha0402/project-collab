@@ -1,0 +1,23 @@
+<div class="col-md-12">
+  <div class="card">
+
+    <div class="header">
+      <div class="pull-left">
+        <h4 class="title"><%= yield :theader %></h4>
+        <p class="category"><b><%= yield :tsub_header %></b></p>
+      </div>
+      <div class="pull-right">
+        <%= yield :taction %>
+      </div>
+    </div>
+    <div class="content table-responsive table-full-width">
+      <table class="table table-striped <%= yield :table_class %> datatable">
+          <%= yield :tcontent %>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('.datatable').DataTable();
+</script>

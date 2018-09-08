@@ -1,0 +1,38 @@
+<%= content_for :tcontent do %>
+  <% if @tasks.present? %>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Project</th>
+        <th>Created At</th>
+        <th>Assigned To</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= task.name %></td>
+          <td><%= task.status.humanize %></td>
+          <td><%= task.project.name %></td>
+          <td><%= task.created_at.to_s(:default) %></td>
+          <td><%= task.try(:user).try(:email) %></td>
+          <td>
+            <%= link_to 'Edit', edit_project_task_path(task.project, task), class: "btn bg-olive" if can? :edit, Task %>
+            <%= link_to 'Delete', project_task_path(task.project, task), class: "btn bg-olive", method: :delete if can? :delete, Task %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% else %>
+    <div class="row">
+      <p>No tasks created yet.</p>
+    </div>
+  <% end %>
+<% end %>
+
+<%= content_for :theader, "All Tasks" %>
+
+<%= render '/shared/table' %>

@@ -4,7 +4,21 @@ Rails.application.routes.draw do
     root "users/sessions#new"
   end
 
-  get 'dashboard/index'
+  resources :projects, except: [:show] do
+    get :add_resources, on: :member
+    post :save_resources, on: :member
+    delete :remove_resource, on: :member
+    resources :tasks, except: [:show]
+  end
+
+  # controller :users do
+  #   get 'index', as: "users"
+  # end
+
+  get '/users', to: "users#index", as: :users
+  get '/all_tasks', to: "tasks#all_tasks", as: :all_tasks
+
+  get 'dashboard', to: "dashboard#index", as: :dashboard
 
   devise_for :users, controllers: { sessions: 'users/sessions',
                                     passwords: 'users/passwords',

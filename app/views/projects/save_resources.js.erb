@@ -1,0 +1,4 @@
+$('#modalPopUp').find('.modal-content').html("");
+$('#modalPopUp').modal('hide');
+
+$('.team_members').html("<%=j render 'project_users', project: @project %>")

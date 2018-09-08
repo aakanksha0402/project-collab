@@ -1,0 +1,45 @@
+<%= content_for :projects_class, "active" %>
+
+<%= content_for :taction do %>
+  <%= link_to '+ New Project', new_project_path, class: "btn btn-info btn-fill btn-wd pull-right" if can? :create, Project %>
+<% end %>
+
+<%= content_for :tcontent do %>
+  <% if @projects.present? %>
+    <thead>
+      <tr>
+        <th>Project Id</th>
+        <th>Name</th>
+        <th>Created At</th>
+        <th>Status</th>
+        <th>Created By</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          <td><%= project.project_id %></td>
+          <td><%= project.name %></td>
+          <td><%= project.created_at.to_s(:default) %></td>
+          <td><%= project.status.capitalize %></td>
+          <td><%= project.added_by.email %></td>
+          <td>
+            <%= link_to 'Edit', edit_project_path(project), class: "btn bg-olive" if can? :update, Project  %>
+            <%= link_to 'View Tasks', project_tasks_path(project), class: "btn bg-olive" if can? :read, Task  %>
+            <%= link_to 'Add Resources', add_resources_project_path(project), class: "btn bg-olive", remote: true if can? :add_resource, Project  %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% else %>
+    <div class="row">
+      <p>No projects are assigned to you currently</p>
+    </div>
+  <% end %>
+<% end %>
+
+<%= content_for :theader, "All Projects" %>
+
+<%= render '/shared/table' %>

@@ -2,6 +2,13 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%#= devise_error_messages! %>
   <div class=" w3l-form-group">
+    <% User.roles.keys.each do |key| %>
+      <%= f.label :role, key, value: key %>
+      <%= f.radio_button :role, key, checked: "checked" %>
+    <% end %>
+</div>
+
+  <div class=" w3l-form-group">
       <%= f.label :email %>
       <div class="group">
           <i class="fas fa-user"></i>
