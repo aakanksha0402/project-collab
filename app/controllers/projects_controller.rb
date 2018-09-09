@@ -5,6 +5,7 @@ class ProjectsController < ApplicationController
 
   before_action :set_project, only: [:show, :edit, :update, :destroy, :add_resources, :save_resources]
   before_action :get_statuses, only: [:new, :edit, :update]
+  before_action :prepare_data, only: [:edit, :update]
 
   # GET /projects
   # GET /projects.json
@@ -66,7 +67,6 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
-    puts "--------->"
     @project.update_attribute(:status, 'deleted')
     respond_to do |format|
       format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
@@ -105,5 +105,9 @@ class ProjectsController < ApplicationController
 
     def get_statuses
       @statuses = Project.statuses.keys
+    end
+
+    def prepare_data
+      @data = @project.prepare_data
     end
 end

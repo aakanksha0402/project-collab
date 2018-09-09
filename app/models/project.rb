@@ -17,6 +17,12 @@ class Project < ApplicationRecord
     "#{get_random_string}-#{get_random_number}"
   end
 
+  def prepare_data
+    data = [['Task', 'Hours per Day']]
+    tasks.group_by(&:status).map {|key, value| data << [key.humanize, value.count]}
+    data
+  end
+
   protected
 
   def check_status
