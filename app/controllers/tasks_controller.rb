@@ -73,12 +73,11 @@ class TasksController < ApplicationController
   end
 
   def all_tasks
-    @tasks = Task.all
-    @projects = Project.all
-    @tasks = Task.where(project_id: params[:project_id]) if params[:project_id].present?
-    respond_to do |format|
-      format.html
-      format.js
+    user = current_user
+    if user.project_manager?
+      @tasks = Task.all
+    elsif user.developer?
+      @tasks = user.tasks
     end
   end
 

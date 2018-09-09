@@ -1,4 +1,5 @@
 <h2>Login Here</h2>
+<%= show_errors_for(resource) %>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class=" w3l-form-group">
       <%= f.label :email %>
