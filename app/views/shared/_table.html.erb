@@ -9,9 +9,10 @@
       <div class="pull-right">
         <%= yield :taction %>
       </div>
+      <div class="clearfix"></div>
     </div>
-    <div class="content table-responsive table-full-width">
-      <table class="table table-striped <%= yield :table_class %> datatable">
+    <div class="content table-responsive">
+      <table class="table table-striped datatable">
           <%= yield :tcontent %>
       </table>
     </div>
@@ -19,5 +20,5 @@
 </div>
 
 <script type="text/javascript">
-  $('.datatable').DataTable();
+  setTimeout(function(){ $('select').select2('destroy'); }, 1000);
 </script>

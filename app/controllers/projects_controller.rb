@@ -4,6 +4,8 @@ class ProjectsController < ApplicationController
   load_and_authorize_resource
 
   before_action :set_project, only: [:show, :edit, :update, :destroy, :add_resources, :save_resources]
+  before_action :get_statuses, only: [:new, :edit, :update]
+  before_action :prepare_data, only: [:edit, :update]
 
   # GET /projects
   # GET /projects.json
@@ -23,13 +25,11 @@ class ProjectsController < ApplicationController
 
   # GET /projects/new
   def new
-    @statuses = Project.statuses.keys
     @project = current_user.added_projects.new
   end
 
   # GET /projects/1/edit
   def edit
-    @statuses = Project.statuses.keys
   end
 
   # POST /projects
@@ -101,5 +101,13 @@ class ProjectsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
       params.require(:project).permit(:project_id, :status, :description, :name)
+    end
+
+    def get_statuses
+      @statuses = Project.statuses.keys
+    end
+
+    def prepare_data
+      @data = @project.prepare_data
     end
 end

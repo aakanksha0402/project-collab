@@ -1,17 +1,18 @@
-<%= content_for :projects_class, "active" %>
+<%= content_for :tasks_class, "active" %>
 
 <div class="col-lg-8 col-md-7">
     <div class="card">
         <div class="header">
           <div class="pull-left">
             <h4 class="title">Task</h4>
-            <p class="category"><b><%= @project.name %> (<%= @project.status.humanize %>)</b></p>
           </div>
           <div class="pull-right">
             <%= link_to 'View all tasks', project_tasks_path(@project), class: "btn btn-info btn-fill btn-wd pull-right" if can? :read, Task %>
           </div>
+          <div class="clearfix"></div>
         </div>
         <div class="content">
+          <%= show_errors_for(task) %>
           <%= form_with(model: task, url: url, local: true) do |form| %>
                 <% if (can? :add_resource, Project) && @users.present? %>
                   <div class="row">

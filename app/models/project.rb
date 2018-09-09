@@ -1,30 +1,45 @@
 class Project < ApplicationRecord
-  belongs_to :added_by
 
+  include GetTasks, Status
+
+  # Associations
   has_many :project_users
   has_many :users, through: :project_users
   has_many :tasks
-
   belongs_to :added_by, class_name: "User", foreign_key: :added_by_id
 
-  enum status: [:init, :in_progress, :completed, :hold, :deleted]
-
+  # Validations
   validates :name, :project_id, presence: :true
 
-  # def self.totals_by_year_month
-  #   find_by_sql(<<-SQL
-  #     SELECT
-  #       date_trunc('month', created_at) AS year_month,
-  #       sum(amount) as amount
-  #     FROM orders
-  #     GROUP BY year_month
-  #     ORDER BY year_month, amount
-  #     SQL
-  #   ).map do |row|
-  #     [
-  #       row['year_month'].strftime("%B %Y"),
-  #       row.amount.to_f,
-  #     ]
-  #   end
-  # end
+  # before_save :check_status
+
+  def generate_project_id
+    "#{get_random_string}-#{get_random_number}"
+  end
+
+  def prepare_data
+    data = [['Task', 'Hours per Day']]
+    tasks.group_by(&:status).map {|key, value| data << [key.humanize, value.count]}
+    data
+  end
+
+  protected
+
+  def check_status
+    if self.deleted?
+      errors.add(:base, "This project has been deleted and cannot be edited now")
+      throw(:abort)
+    else
+      true
+    end
+  end
+
+  def get_random_string
+    SecureRandom.hex.chars.first(5).join()
+  end
+
+  def get_random_number
+    SecureRandom.random_number(10000)
+  end
+
 end

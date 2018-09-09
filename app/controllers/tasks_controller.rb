@@ -6,6 +6,8 @@ class TasksController < ApplicationController
 
   before_action :set_project, except: [:all_tasks]
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :get_statuses, only: [:new, :edit, :update]
+  before_action :project_users, only: [:new, :edit, :update]
 
   # GET /tasks
   # GET /tasks.json
@@ -20,13 +22,11 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    project_users
     @task = @project.tasks.new
   end
 
   # GET /tasks/1/edit
   def edit
-    project_users
   end
 
   # POST /tasks
@@ -53,7 +53,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to edit_project_task_path(@project, @task.id), notice: 'Task was successfully updated.' }
+        format.html { redirect_to project_tasks_path(@project), notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }
@@ -105,6 +105,9 @@ class TasksController < ApplicationController
 
     def project_users
       @users = @project.users
-      @statuses = Task.statuses.keys
+    end
+
+    def get_statuses
+      @statuses = Project.statuses.keys
     end
 end

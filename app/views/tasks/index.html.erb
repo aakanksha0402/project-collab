@@ -1,8 +1,8 @@
 <%= content_for :projects_class, "active" %>
 
 <%= content_for :taction do %>
-  <%= link_to '+ New Task', new_project_task_path(project_id: @project), class: "btn btn-info btn-fill btn-wd pull-right" if can? :create, Task %>
-  <%= link_to 'View all projects', projects_path, class: "btn btn-info btn-fill btn-wd pull-right" if can? :read, Project %>
+  <%= link_to '+ New Task', new_project_task_path(project_id: @project), class: "btn btn-success btn-fill btn-standard pull-right" if can? :create, Task %>
+  <%= link_to 'View all projects', projects_path, class: "btn btn-info btn-fill btn-standard pull-right" if can? :read, Project %>&nbsp
 <% end %>
 
 <%= content_for :tsub_header do %>

@@ -34,6 +34,7 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Designs
 gem 'haml'
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
@@ -42,9 +43,7 @@ gem 'toastr-rails'
 gem 'select2-rails'
 gem 'jquery-datatables-rails', '~> 3.4.0'
 
-
-
-# authentication and authorization
+# Authentication and Authorization
 gem 'devise'
 gem 'cancancan'
 
@@ -52,8 +51,11 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
+  gem 'rspec-rails', '~> 3.4'
+  gem 'factory_girl_rails', '~> 4.5.0'
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'faker', '~> 1.6.1'
 end
 
 group :development do
@@ -68,10 +70,12 @@ group :development do
 end
 
 group :test do
+  gem 'shoulda-matchers', '~> 3.0', require: false
   gem 'database_cleaner', '~> 1.5.1'
-  gem 'factory_girl_rails', '~> 4.5.0'
-  gem 'faker', '~> 1.6.1'
+  gem 'simplecov', require: false
+  gem 'rails-controller-testing'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

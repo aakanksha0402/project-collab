@@ -1,7 +1,7 @@
 <%= content_for :users_class, "active" %>
 
 <%= content_for :tsub_header do %>
-  <%= @developers.count %>
+  (<%= @developers.count %>)
 <% end %>
 
 <%= content_for :tcontent do %>
@@ -23,7 +23,7 @@
     </tbody>
   <% else %>
     <div class="row">
-      <p>No developer available..</p>
+      <p>No developer available.</p>
     </div>
   <% end %>
 <% end %>
