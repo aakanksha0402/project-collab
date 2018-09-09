@@ -12,6 +12,7 @@
  *
  * require_tree .
  *= require bootstrap_and_overrides
+ *= require toastr
  *= require devise_style
  *= require_self
  */

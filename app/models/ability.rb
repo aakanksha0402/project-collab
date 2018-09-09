@@ -36,8 +36,7 @@ class Ability
       can :view_projects, User
       can :manage, Project
       can :add_resource, Project
-      can [:read, :edit, :update, :create], Task, project: {added_by_id: user.id}      
-      can :all_tasks, Task
+      can [:read, :edit, :update, :create], Task, project: {added_by_id: user.id}
       can :read, User
     elsif user.developer?
       cannot :view_projects

@@ -24,7 +24,7 @@
               <button class="btn btn-default dropdown-toggle" type="button" id="action_menu" data-toggle="dropdown">Actions
                 <span class="caret"></span></button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="action_menu">
-                  <li><%= link_to 'Edit', edit_project_task_path(task.project, task) if can? :edit, Task %></li>                  
+                  <li><%= link_to 'Edit', edit_project_task_path(task.project, task) if can? :edit, Task %></li>
                 </ul>
             </div>
           </td>

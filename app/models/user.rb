@@ -16,6 +16,14 @@ class User < ApplicationRecord
   has_many :tasks
 
   # Validations
+  validates :email, presence: {message: "cannot be blank."}
   validates :role, presence: true
 
+  def active_for_authentication?
+      super and self.is_active?
+  end
+
+  def inactive_message
+    "You are not allowed to log in till the account is approved."
+  end
 end
