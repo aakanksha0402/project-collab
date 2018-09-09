@@ -6,12 +6,13 @@
             <h4 class="title">Project</h4>
         </div>
         <div class="content">
+          <%= show_errors_for(project) %>
             <%= form_with(model: project, local: true) do |form| %>
                 <div class="row">
                     <div class="col-md-5">
                         <div class="form-group">
                             <%= form.label :project_id %>
-                            <%= form.text_field :project_id, class: "form-control border-input", placeholder: "Unique project id" %>
+                            <%= form.text_field :project_id, class: "form-control border-input", placeholder: "Unique project id", value: form.object.generate_project_id %>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -54,8 +55,8 @@
             <%= render 'project_users', project: @project %>
           </div>
       </div>
-      <%= link_to 'Add Resources', add_resources_project_path(project), class: "btn bg-olive btn-fill btn-block", remote: true if can? :add_resource, Project  %>
-      <%= link_to 'View Tasks', project_tasks_path(project), class: "btn bg-success btn-fill btn-block" if can? :read, Task  %>
+      <%= link_to 'View Tasks', project_tasks_path(project), class: "btn bg-success btn-block" if can? :read, Task  %>
+      <%= link_to '+ Add Resources', add_resources_project_path(project), class: "btn bg-olive btn-fill btn-block btn-success", remote: true if can? :add_resource, Project  %>
       <%= link_to "DELETE PROJECT", project_path, method: :delete, class: "btn btn-danger btn-fill btn-block" %>
   </div>
 <% end %>

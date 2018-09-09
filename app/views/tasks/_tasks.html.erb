@@ -20,8 +20,13 @@
           <td><%= task.created_at.to_s(:default) %></td>
           <td><%= task.try(:user).try(:email) %></td>
           <td>
-            <%= link_to 'Edit', edit_project_task_path(task.project, task), class: "btn bg-olive" if can? :edit, Task %>
-            <%= link_to 'Delete', project_task_path(task.project, task), class: "btn bg-olive", method: :delete if can? :delete, Task %>
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="action_menu" data-toggle="dropdown">Actions
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="action_menu">
+                  <li><%= link_to 'Edit', edit_project_task_path(task.project, task) if can? :edit, Task %></li>                  
+                </ul>
+            </div>
           </td>
         </tr>
       <% end %>

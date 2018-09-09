@@ -107,6 +107,9 @@
         <div class="container-fluid">
           <div class="row">
             <%= custom_bootstrap_flash %>
+            <% if content_for?(:errors) %>
+              <%= alert_box(content_for(:errors), 'alert-danger', false) %>
+            <% end %>
             <%= yield %>
           </div>
         </div>

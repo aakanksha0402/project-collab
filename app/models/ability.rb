@@ -33,18 +33,19 @@ class Ability
       # cannot :edit, Project do |project|
       #   project.deleted?
       # end
-
+      can :view_projects, User
       can :manage, Project
       can :add_resource, Project
-      can [:read, :edit, :create, :delete, :change_status], Task, project: {added_by: user}
+      can [:read, :edit, :update, :create], Task, project: {added_by_id: user.id}      
       can :all_tasks, Task
       can :read, User
     elsif user.developer?
+      cannot :view_projects
       can :read, Project
       cannot :update, Project
       cannot :delete, Project
       can [:create, :read], Task, project: {project_users: {user_id: user.id}}
-      can [:update, :delete, :change_status], Task, user_id: user.id
+      can [:edit, :update, :delete], Task, user_id: user.id
     end
   end
 end

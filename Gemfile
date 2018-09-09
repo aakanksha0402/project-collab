@@ -68,10 +68,14 @@ group :development do
 end
 
 group :test do
+  gem 'shoulda-matchers', '~> 3.0', require: false
   gem 'database_cleaner', '~> 1.5.1'
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'faker', '~> 1.6.1'
+  gem 'simplecov', require: false
+  gem 'rails-controller-testing'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

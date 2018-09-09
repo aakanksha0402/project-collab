@@ -29,4 +29,13 @@ module ApplicationHelper
 
     html.html_safe
   end
+
+  def alert_box(text, type, close = true)
+    row = text.html_safe
+    content_tag :div, row, class: "alert #{type}", data: {alert: ''}
+  end
+
+  def show_errors_for(object)
+    content_for(:errors, object.errors.full_messages.map { |m| "#{m}."}.join('<br>').html_safe)
+  end
 end

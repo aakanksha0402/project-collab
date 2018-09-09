@@ -1,7 +1,7 @@
 <%= content_for :projects_class, "active" %>
 
 <%= content_for :taction do %>
-  <%= link_to '+ New Project', new_project_path, class: "btn btn-info btn-fill btn-wd pull-right" if can? :create, Project %>
+  <%= link_to '+ New Project', new_project_path, class: "btn btn-success btn-fill btn-standard pull-right" if can? :create, Project %>
 <% end %>
 
 <%= content_for :tcontent do %>
@@ -10,9 +10,9 @@
       <tr>
         <th>Project Id</th>
         <th>Name</th>
-        <th>Created At</th>
         <th>Status</th>
         <th>Created By</th>
+        <th>Created At</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -22,13 +22,19 @@
         <tr>
           <td><%= project.project_id %></td>
           <td><%= project.name %></td>
-          <td><%= project.created_at.to_s(:default) %></td>
           <td><%= project.status.capitalize %></td>
           <td><%= project.added_by.email %></td>
+          <td><%= project.created_at.to_s(:default) %></td>
           <td>
-            <%= link_to 'Edit', edit_project_path(project), class: "btn bg-olive" if can? :update, Project  %>
-            <%= link_to 'View Tasks', project_tasks_path(project), class: "btn bg-olive" if can? :read, Task  %>
-            <%= link_to 'Add Resources', add_resources_project_path(project), class: "btn bg-olive", remote: true if can? :add_resource, Project  %>
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Actions
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                  <li><%= link_to 'Edit', edit_project_path(project) if can? :update, Project %></li>
+                  <li><%= link_to 'View Tasks', project_tasks_path(project) if can? :read, Task %></li>
+                  <li><%= link_to 'Add Resources', add_resources_project_path(project), remote: true if can? :add_resource, Project %></li>
+                </ul>
+            </div>
           </td>
         </tr>
       <% end %>
